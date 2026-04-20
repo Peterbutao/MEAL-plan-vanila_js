@@ -1,0 +1,336 @@
+<style>
+  :root {
+    --color-background-primary: #ffffff;
+    --down: black;
+    --color-background-secondary: #f6f8fa;
+    --color-border-tertiary: #d1d9e0;
+    --color-border-secondary: #0969da;
+    --color-text-primary: #24292f;
+    --color-text-secondary: #656d76;
+    --color-background-info: #ddf4ff;
+    --color-text-info: #0969da;
+    --color-background-success: #dafbe1;
+    --color-text-success: #1a7f37;
+    --border-radius-md: 6px;
+    --font-sans: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .dark-theme {
+    --color-background-primary: #0d1117;
+    --down: white;
+    --color-background-secondary: #161b22;
+    --color-border-tertiary: #30363d;
+    --color-border-secondary: #58a6ff;
+    --color-text-primary: #f0f6fc;
+    --color-text-secondary: #c9d1d9;
+    --color-background-info: #0d1117;
+    --color-text-info: #79c0ff;
+    --color-background-success: #0d1117;
+    --color-text-success: #56d364;
+  }
+  *{
+    margin: 1;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body{
+    padding: 10px;
+    background: var(--color-background-primary);
+  }
+  #gw{
+
+    max-width: 800px;
+    margin: auto;
+    padding: 15px !important;
+
+  }
+  h2{
+    text-transform: uppercase;
+    font-size: 15px;  
+    letter-spacing: 2px;
+  }
+ 
+  .connecting-dots span {
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
+    font-size: 32px;
+  }
+  .connecting-dots span:nth-child(1) { animation-delay: -0.32s; }
+  .connecting-dots span:nth-child(2) { animation-delay: -0.16s; }
+  .connecting-dots span:nth-child(3) { animation-delay: 0s; }
+  @keyframes bounce {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1);
+    }
+  }
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  .image-size {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 50%;
+    border: 2px solid #cccccc00;
+    box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 20px 6px;
+    animation: pulse 2s infinite;
+    background-color: white;
+  }
+ 
+</style>
+
+<div id="gw" style="padding:1rem 0; font-family:'var(--font-sans)';">
+  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+    <img src="./befit.jpg" alt="Monitoring" class="image-size" style="margin-right: 20px;">
+    <div class="connecting-dots">
+      <span>.</span>
+      <span>.</span>
+      <span>.</span>
+    </div>
+    <img src="./fyf.png" alt="Evaluation" class="image-size" style="margin-left: 20px;">
+  </div>
+  <h2 class="sr-only">BEFIT Q7–Q8 activity monitoring and evaluation activities - April to September 2026</h2>
+  
+  <br>
+  <div id="filters" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;"></div>
+  <div id="detail" style="margin-top:12px;min-height:52px;border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-secondary);">
+    <em>_</em>
+  </div>
+
+  <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+    <button onclick="toggleTheme()" id="theme-toggle" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary); margin-right:10px;" title="Toggle theme">🌙</button>
+    <button onclick="downloadImage()" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary);" title="Download as image">⋮</button>
+  </div>
+
+
+  <div id="gantt" style="overflow-x:auto;"></div>
+
+  <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;">
+    <span style="font-size:11px;color:var(--color-text-secondary);font-weight:500;">Legend:</span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+      <span style="width:28px;height:10px;border-radius:2px;background:#B5D4F4;border:1px solid #185FA5;display:inline-block;"></span> One-time activity
+    </span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+      <span style="width:28px;height:10px;border-radius:2px;background:repeating-linear-gradient(90deg,#B5D4F4 0px,#B5D4F4 5px,transparent 5px,transparent 8px);border:1px solid #185FA5;display:inline-block;"></span> Recurring / ongoing
+    </span>
+    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+      <span style="width:10px;height:10px;border-radius:50%;background:#E24B4A;border:1.5px solid #A32D2D;display:inline-block;"></span> Milestone
+    </span>
+  </div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="me_plan.pdf" target="_blank">
+      <button style="width: 100%; background: var(--down); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); padding: 10px 20px; cursor: pointer; font-size: 14px;">View M&E Plan PDF</button>
+    </a>
+  </div>
+
+</div>
+
+<script>
+const TOTAL=183, LW=180, BA=460;
+const SD=new Date(2026,3,1);
+function fmtD(n){const d=new Date(SD);d.setDate(d.getDate()+n);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+
+const groups=[
+  {name:"Documentation",       color:"#5F5E5A",fill:"#D3D1C7",dark:"#2C2C2A",items:[
+    {label:"Q6 meeting record",              resp:"ISP Rapporteur",          start:0,  end:5  },
+    {label:"Q6 feedback summary to schools", resp:"ISP / CPEA",              start:0,  end:14 },
+    {label:"M&E plan mid-Q7 revision",       resp:"Programme Manager",       start:44, end:60 },
+    {label:"Risk register monthly updates",  resp:"ISP Rapporteur",          start:0,  end:182,recurring:true},
+  ]},
+  {name:"Capacity Building",   color:"#0F6E56",fill:"#9FE1CB",dark:"#04342C",items:[
+    {label:"Data skills: ComCare & Akuko",   resp:"ISP",             start:0,  end:30 },
+    {label:"Technical refresher — ZITs",     resp:"BEFIT Coordinators",      start:7,  end:44 },
+    {label:"zonal capacity building",      resp:"ZEMISO / District",       start:14, end:90 },
+  ]},
+  {name:"Device Management",   color:"#854F0B",fill:"#FAC775",dark:"#412402",items:[
+    {label:"Tablet provision — Mkukula",     resp:"ISP",                   start:14, end:18, milestone:true},
+    {label:"Device audit & repair (Q7)",     resp:"ZIT / DIT",             start:0,  end:90 },
+    {label:"Maintenance registers (ongoing)",resp:"Head Teachers",           start:0,  end:182,recurring:true},
+  ]},
+  {name:"Community",           color:"#993556",fill:"#F4C0D1",dark:"#4B1528",items:[
+    {label:"Learner & community sensitisation",resp:"Head Teachers / ZIT / SMC",start:14,end:90},
+  ]},
+  {name:"Monitoring — Q7",     color:"#185FA5",fill:"#B5D4F4",dark:"#042C53",items:[
+    {label:"PEA monthly monitoring reports", resp:"PEA",                     start:30, end:90, recurring:true},
+    {label:"ZEMISO data extraction",         resp:"ZEMISO",                  start:70,  end:90, recurring:true},
+    {label:"ZIT school supervision visits",  resp:"ZIT",                     start:0,  end:180, recurring:true},
+    {label:"Zone transition progress reports",resp:"ACCO / ZIT",             start:30, end:90, recurring:true},
+  ]},
+  {name:"Transition Planning", color:"#993C1D",fill:"#F0997B",dark:"#4A1B0C",items:[
+    {label:"ISP exit dependency mapping",    resp:"ISP / BEDIT",             start:0,  end:60 },
+    {label:"ISP exit checklist completion",  resp:"ISP + DIT (joint)",       start:75, end:90 },
+  ]},
+  {name:"Review Milestones",   color:"#3B6D11",fill:"#C0DD97",dark:"#173404",items:[
+    {label:"Mid-Q7 transition check-in",     resp:"ISP / BEDIT",             start:44, end:51 },
+    {label:"Q7 readiness verification",      resp:"ISP, DIT, ZIT, DEO",      start:83, end:90 },
+    {label:"Q7 transition readiness report", resp:"ISP / BEDIT",             start:87, end:97 },
+  ]},
+  {name:"Monitoring — Q8",     color:"#185FA5",fill:"#B5D4F4",dark:"#042C53",items:[
+    {label:"ZIT school supervision visits",  resp:"ZIT",                     start:91, end:182,recurring:true},
+    {label:"ZEMISO data extraction",         resp:"ZEMISO",                  start:91, end:182,recurring:true},
+    {label:"DEO oversight & coordination",   resp:"DIT / DEO",               start:91, end:182},
+  ]},
+  {name:"Handover",            color:"#A32D2D",fill:"#F7C1C1",dark:"#501313",items:[
+    {label:"Programme handover — Q8 exit",   resp:"ISP, DIT, DEO, MoE",      start:168,end:182},
+  ]},
+];
+
+const months=[
+  {label:"Apr",start:0,days:30},{label:"May",start:30,days:31},
+  {label:"Jun",start:61,days:30},{label:"Jul",start:91,days:31},
+  {label:"Aug",start:122,days:31},{label:"Sep",start:153,days:30},
+];
+
+let active='all';
+const allItems=[];
+groups.forEach((g,gi)=>g.items.forEach((it,ii)=>allItems.push({gi,ii,g,it})));
+
+function render(){
+  const W=LW+BA;
+  let h=`<div style="width:${W}px;">`;
+
+  h+=`<div style="display:flex;margin-left:${LW}px;margin-bottom:3px;">`;
+  h+=`<div style="width:${BA*0.5}px;text-align:center;background:var(--color-background-info);color:var(--color-text-info);border-radius:3px 0 0 3px;font-size:10px;font-weight:500;padding:2px 0;letter-spacing:.3px;">Q7 — APR to JUN 2026</div>`;
+  h+=`<div style="width:${BA*0.5}px;text-align:center;background:var(--color-background-success);color:var(--color-text-success);border-radius:0 3px 3px 0;font-size:10px;font-weight:500;padding:2px 0;letter-spacing:.3px;">Q8 — JUL to SEP 2026</div>`;
+  h+=`</div>`;
+
+  h+=`<div style="display:flex;margin-left:${LW}px;margin-bottom:5px;">`;
+  months.forEach(m=>{
+    const w=(m.days/TOTAL*BA);
+    h+=`<div style="width:${w}px;text-align:center;font-size:11px;font-weight:500;color:var(--color-text-secondary);border-left:0.5px solid var(--color-border-tertiary);padding:2px 0;">${m.label}</div>`;
+  });
+  h+=`</div>`;
+
+  let idx=0;
+  groups.forEach(g=>{
+    if(active!=='all'&&active!==g.name)return;
+
+    h+=`<div style="display:flex;align-items:center;padding:4px 0 2px;border-top:0.5px solid var(--color-border-tertiary);margin-top:3px;">`;
+    h+=`<div style="width:${LW}px;font-size:10px;font-weight:500;color:${g.color};text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:6px;">${g.name}</div>`;
+    h+=`<div style="width:${BA}px;height:2px;background:${g.fill};border-radius:1px;opacity:.6;"></div>`;
+    h+=`</div>`;
+
+    g.items.forEach(it=>{
+      const bL=(it.start/TOTAL*BA);
+      const bW=Math.max(((it.end-it.start)/TOTAL*BA),4);
+      const isMile=it.milestone;
+      const isRec=it.recurring;
+      const pat=isRec?`repeating-linear-gradient(90deg,${g.fill} 0,${g.fill} 5px,transparent 5px,transparent 8px)`:``;
+      const bgStyle=isRec?`background:${pat};border:1px solid ${g.color};`:`background:${g.fill};border:1px solid ${g.color};`;
+
+      h+=`<div data-ai="${idx}" style="display:flex;align-items:center;height:26px;cursor:default;" >`;
+      h+=`<div style="width:${LW}px;font-size:11px;color:var(--color-text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:6px;flex-shrink:0;">${it.label}</div>`;
+      h+=`<div style="width:${BA}px;height:100%;position:relative;flex-shrink:0;">`;
+      months.forEach(m=>{
+        const x=(m.start/TOTAL*BA);
+        h+=`<div style="position:absolute;left:${x}px;top:0;bottom:0;width:0.5px;background:var(--color-border-tertiary);"></div>`;
+      });
+      if(isMile){
+        const cx=bL+bW/2;
+        h+=`<div style="position:absolute;left:${cx-6}px;top:5px;width:12px;height:12px;border-radius:50%;background:${g.fill};border:2px solid ${g.color};box-sizing:border-box;"></div>`;
+      } else {
+        h+=`<div style="position:absolute;left:${bL}px;width:${bW}px;top:5px;height:16px;border-radius:2px;${bgStyle}box-sizing:border-box;"></div>`;
+      }
+      h+=`</div></div>`;
+      idx++;
+    });
+  });
+
+  h+=`</div>`;
+  document.getElementById('gantt').innerHTML=h;
+
+  document.getElementById('gantt').addEventListener('mouseover',e=>{
+    const r=e.target.closest('[data-ai]');
+    if(!r)return;
+    const i=parseInt(r.dataset.ai);
+    const {g,it}=allItems[i];
+    document.getElementById('detail').innerHTML=`
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;">
+        <span style="font-weight:500;color:var(--color-text-primary);font-size:13px;">${it.label}</span>
+        <span style="font-size:11px;color:${g.color};font-weight:500;text-transform:uppercase;letter-spacing:.4px;">${g.name}</span>
+      </div>
+      <div style="margin-top:4px;display:flex;flex-wrap:wrap;gap:12px;">
+        <span><span style="color:var(--color-text-secondary);">Responsible:</span> ${it.resp}</span>
+        <span><span style="color:var(--color-text-secondary);">Period:</span> ${fmtD(it.start)} — ${fmtD(it.end)}</span>
+        ${it.recurring?'<span style="color:var(--color-text-secondary);font-style:italic;">recurring monthly</span>':''}
+        ${it.milestone?'<span style="color:var(--color-text-secondary);font-style:italic;">milestone</span>':''}
+      </div>`;
+  });
+
+  document.getElementById('gantt').addEventListener('mouseleave',()=>{
+    document.getElementById('detail').innerHTML='<em></em>';
+  });
+}
+
+const fDiv=document.getElementById('filters');
+const mkBtn=(label,group,isActive)=>{
+  const b=document.createElement('button');
+  b.textContent=label;
+  b.dataset.g=group;
+  b.style.cssText=`font-size:11px;padding:3px 9px;border-radius:var(--border-radius-md);border:0.5px solid ${isActive?'var(--color-border-secondary)':'var(--color-border-tertiary)'};background:${isActive?'var(--color-background-secondary)':'transparent'};cursor:pointer;color:${isActive?'var(--color-text-primary)':'var(--color-text-secondary)'};font-weight:${isActive?'600':'400'};box-shadow:${isActive?'0 1px 3px rgba(0,0,0,0.1)':'none'};`;
+  b.onclick=()=>{
+    active=group;
+    fDiv.querySelectorAll('button').forEach(x=>{
+      x.style.borderColor='var(--color-border-tertiary)';
+      x.style.background='transparent';
+      x.style.color='var(--color-text-secondary)';
+      x.style.fontWeight='400';
+      x.style.boxShadow='none';
+    });
+    b.style.borderColor='var(--color-border-secondary)';
+    b.style.background='var(--color-background-secondary)';
+    b.style.color='var(--color-text-primary)';
+    b.style.fontWeight='600';
+    b.style.boxShadow='0 1px 3px rgba(0,0,0,0.1)';
+    render();
+  };
+  return b;
+};
+
+fDiv.appendChild(mkBtn('All activities','all',true));
+groups.forEach(g=>fDiv.appendChild(mkBtn(g.name,g.name,false)));
+
+render();
+</script>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  html.classList.toggle('dark-theme');
+  const isDark = html.classList.contains('dark-theme');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  document.getElementById('theme-toggle').textContent = isDark ? '☀️' : '🌙';
+}
+
+// Load theme on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.documentElement.classList.add('dark-theme');
+    document.getElementById('theme-toggle').textContent = '☀️';
+  } else {
+    document.getElementById('theme-toggle').textContent = '🌙';
+  }
+});
+</script>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+function downloadImage() {
+  html2canvas(document.getElementById('gw')).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'gantt-chart.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
