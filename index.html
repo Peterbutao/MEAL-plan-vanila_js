@@ -2,6 +2,7 @@
   :root {
     --color-background-primary: #ffffff;
     --down: black;
+    --nav: white;
     --color-background-secondary: #f6f8fa;
     --color-border-tertiary: #d1d9e0;
     --color-border-secondary: #0969da;
@@ -17,6 +18,7 @@
   .dark-theme {
     --color-background-primary: #0d1117;
     --down: white;
+    --nav: rgb(48, 46, 46);
     --color-background-secondary: #161b22;
     --color-border-tertiary: #30363d;
     --color-border-secondary: #58a6ff;
@@ -34,20 +36,40 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   body{
-    padding: 10px;
     background: var(--color-background-primary);
   }
-  #gw{
-
+  
+  nav{
+    position: fixed;
+    width: 100vw;
+    background: var(--nav);
+    z-index: 10;
+  }
+  section:nth-child(1){
+    display: flex;
+    justify-content: space-around;
+    align-items:center;
     max-width: 800px;
     margin: auto;
-    padding: 15px !important;
+    
+  }
+  section:nth-child(2){
+    max-width: 800px;
+    margin: auto;
+  }
+  main{
+    margin: auto;
+    max-width: 800px;
+    padding-bottom: 20vh;
 
   }
   h2{
     text-transform: uppercase;
-    font-size: 15px;  
-    letter-spacing: 2px;
+    font-size: 20px;
+    font-weight: 490;
+    line-height: 2rem;  
+    letter-spacing: 1.3px;
+    padding: 0 5px;
   }
  
   .connecting-dots span {
@@ -78,7 +100,7 @@
     width: 80px;
     height: 80px;
     object-fit: contain;
-    border-radius: 50%;
+    border-radius: 0%;
     border: 2px solid #cccccc00;
     box-shadow: rgba(0, 0, 0, 0.233) 0px 2px 20px 6px;
     animation: pulse 2s infinite;
@@ -88,49 +110,61 @@
 </style>
 
 <div id="gw" style="padding:1rem 0; font-family:'var(--font-sans)';">
-  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
-    <img src="./befit.jpg" alt="Monitoring" class="image-size" style="margin-right: 20px;">
-    <div class="connecting-dots">
-      <span>.</span>
-      <span>.</span>
-      <span>.</span>
-    </div>
-    <img src="./fyf.png" alt="Evaluation" class="image-size" style="margin-left: 20px;">
-  </div>
-  <h2 class="sr-only">BEFIT Q7–Q8 activity monitoring and evaluation activities - April to September 2026</h2>
-  
+  <nav>
+    <section>
+      <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+        <img src="./befit.jpg" alt="Monitoring" class="image-size" style="margin-right: 20px;">
+        <div class="connecting-dots">
+          <span>.</span>
+          <span>.</span>
+          <span>.</span>
+        </div>
+        <img src="./fyf.png" alt="Evaluation" class="image-size" style="margin-left: 20px;">
+      </div>
+      <h2 class="sr-only">BEFIT Q7–Q8 activity monitoring and evaluation activities - April to September 2026</h2>
+    </section>
+    <section>
+      <div id="filters" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;"></div>
+      <div id="detail" style="margin-top:12px;min-height:52px;border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-secondary);">
+        <em>_</em>
+      </div>
+    
+      <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+        <button onclick="toggleTheme()" id="theme-toggle" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary); margin-right:10px;" title="Toggle theme">🌙</button>
+        <button onclick="downloadImage()" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary);" title="Download as image">⋮</button>
+      </div>
+
+    </section>
+  </nav>
   <br>
-  <div id="filters" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;"></div>
-  <div id="detail" style="margin-top:12px;min-height:52px;border-radius:var(--border-radius-md);padding:10px 14px;font-size:12px;color:var(--color-text-secondary);">
-    <em>_</em>
-  </div>
+  <main>
+  
+  
+    <div id="gantt" style="overflow-x:auto;"></div>
+  
+    <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--color-text-secondary);font-weight:500;">Legend:</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+        <span style="width:28px;height:10px;border-radius:2px;background:#B5D4F4;border:1px solid #185FA5;display:inline-block;"></span> One-time activity
+      </span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+        <span style="width:28px;height:10px;border-radius:2px;background:repeating-linear-gradient(90deg,#B5D4F4 0px,#B5D4F4 5px,transparent 5px,transparent 8px);border:1px solid #185FA5;display:inline-block;"></span> Recurring / ongoing
+      </span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
+        <span style="width:10px;height:10px;border-radius:50%;background:#E24B4A;border:1.5px solid #A32D2D;display:inline-block;"></span> Milestone
+      </span>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="./BEFIT_Q6_ME_Plan.docx" target="_blank">
+        <button style="width: 100%; background: var(--down); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); padding: 10px 20px; cursor: pointer; font-size: 14px;">View M&E Plan PDF</button>
+      </a>
+    </div>
 
-  <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
-    <button onclick="toggleTheme()" id="theme-toggle" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary); margin-right:10px;" title="Toggle theme">🌙</button>
-    <button onclick="downloadImage()" style="background:none; border:none; font-size:20px; cursor:pointer; color:var(--color-text-secondary);" title="Download as image">⋮</button>
-  </div>
-
-
-  <div id="gantt" style="overflow-x:auto;"></div>
-
-  <div style="display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap;">
-    <span style="font-size:11px;color:var(--color-text-secondary);font-weight:500;">Legend:</span>
-    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
-      <span style="width:28px;height:10px;border-radius:2px;background:#B5D4F4;border:1px solid #185FA5;display:inline-block;"></span> One-time activity
-    </span>
-    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
-      <span style="width:28px;height:10px;border-radius:2px;background:repeating-linear-gradient(90deg,#B5D4F4 0px,#B5D4F4 5px,transparent 5px,transparent 8px);border:1px solid #185FA5;display:inline-block;"></span> Recurring / ongoing
-    </span>
-    <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--color-text-secondary);">
-      <span style="width:10px;height:10px;border-radius:50%;background:#E24B4A;border:1.5px solid #A32D2D;display:inline-block;"></span> Milestone
-    </span>
-  </div>
-
-  <div style="text-align: center; margin-top: 20px;">
-    <a href="me_plan.pdf" target="_blank">
-      <button style="width: 100%; background: var(--down); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); padding: 10px 20px; cursor: pointer; font-size: 14px;">View M&E Plan PDF</button>
-    </a>
-  </div>
+  </main>
 
 </div>
 
@@ -320,6 +354,10 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     document.getElementById('theme-toggle').textContent = '🌙';
   }
+
+  // Set main margin-top to nav height
+  const navHeight = document.querySelector('nav').offsetHeight;
+  document.querySelector('main').style.marginTop = navHeight + 'px';
 });
 </script>
 
